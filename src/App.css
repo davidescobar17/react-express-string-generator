@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display:flex;
+  width:100%;
 }
 
 .App-logo {
@@ -22,10 +24,142 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 100%;
+  overflow: auto;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.Message {
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+}
+
+.RulesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100vw;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.Rule {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.6);
+  z-index: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.IconButton {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding:0px;
+  z-index: 1;
+}
+
+.DeleteIcon {
+  height: '2rem';
+  width: '2rem';
+}
+
+.RuleConfigContainer {
+  width: 250px;
+  position: relative;
+  padding: 10px;
+  background-color: #282c34;
+  display: flex;
+  height: 100%
+}
+
+.RuleConfig {
+  margin: auto;
+}
+
+.TextAreaAutoSize {
+  resize: none;
+  margin-top: 10px;
+}
+
+.RangeInputContainer {
+  flex-direction: column;
+}
+
+.RangeInputRadioContainer {
+  margin-top: 10px;
+}
+
+.RadioSpecific {
+  margin-right: 5px;
+}
+
+.RadioRange {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.RangeInputNumberContainer {
+  margin-top: 10px;
+}
+
+.RangeMinLabel {
+  margin-right: 10px;
+}
+
+.RangeMinInput {
+
+  width: 3rem;
+  text-align: center;
+}
+
+.RangeMaxLabel {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.RangeMaxInput {
+  width: 3rem;
+  text-align: center;
+}
+
+.SpecificInput {
+  margin-top: 10px;
+}
+
+.NewRuleDiv {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.NewRuleButton {
+  font-size: 1.1rem;
+  width: 100%;
+  height: 100%;
+  border-width: 0px;
+}
+
+.GenerateStringContainer {
+  margin-top: 20px;
+}
+
+.GenerateStringButton {
+  font-size: 1.1rem;
+}
+
+.GeneratedStringLabel {
+  white-space: pre-wrap;
+  margin-top: 20px;
+}
+
+.GeneratedString {
+  white-space: pre-wrap;
+  font-size: 2rem;
 }
 
 @keyframes App-logo-spin {
