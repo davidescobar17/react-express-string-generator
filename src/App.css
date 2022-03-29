@@ -162,6 +162,31 @@
   font-size: 2rem;
 }
 
+.Header {
+  overflow-x:auto;
+  /* background-color: black; */
+  color: white;
+  top: 0;  /* as the height of the other div is 30px */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  height: 60px;
+  line-height: 60px;
+  background-color: rgb(14, 14, 14);
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.6);
+  text-align: left;
+  padding-left: 60px;
+  font-size: 1.4rem;
+}
+
+.Footer {
+  background-color: rgb(14, 14, 14);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

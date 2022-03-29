@@ -264,6 +264,10 @@ function App(){
   return (
   <div className='App'>
 
+    <div className="Header">
+      String Generator
+    </div>
+
     <header className='App-header'>
 
       <p className='Message'>
@@ -416,6 +420,12 @@ function App(){
         null
       }
     </header>
+
+    
+
+    <div className="Footer fixed-bottom">
+      <a href='https://github.com/davidescobar17' class='link-light'>GitHub</a>
+    </div>
   </div>
   );
 }
