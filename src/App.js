@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, { useState, useEffect } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown'
+import Dropdown from 'react-bootstrap/Dropdown';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import IconButton from '@mui/material/IconButton';
@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-function App(){
+function App() {
 
   const [charactersText, setCharactersText] = useState('');
   const [termsText, setTermsText] = useState('');
@@ -45,7 +45,7 @@ function App(){
     let terms = termsText.split(/\s*[\s,]\s*/);
     let termsLength = terms.length;
 
-    for ( var i = 0; i < length; i++ ){
+    for ( var i = 0; i < length; i++ ) {
         result += terms[(Math.floor(Math.random() * 
         termsLength))];
     }
@@ -58,15 +58,13 @@ function App(){
     let result = '';
     let charactersLength = characters.length;
 
-    for ( var i = 0; i < length; i++ ){
+    for ( var i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * 
       charactersLength));
     }
 
     return result;
   }
-  
-  
 
   const addNewRule = (e) => {
 
@@ -115,42 +113,42 @@ function App(){
 
     // go through rules, each rule appends to the result string
 
-    for (const rulePositionConfig of rulePositionConfigs){
+    for (const rulePositionConfig of rulePositionConfigs) {
 
-      if(rulePositionConfig.isRange){
+      if (rulePositionConfig.isRange) {
 
         let countMin = rulePositionConfig.countMin;
         let countMax = rulePositionConfig.countMax;
         let allowGenerate = true;
 
-        if(countMin === '' && countMax === ''){
+        if (countMin === '' && countMax === '') {
 
           allowGenerate = false;
         }
-        else if(countMin === ''){
+        else if (countMin === '') {
 
           countMin = countMax;
         }
-        else if(countMax === ''){
+        else if (countMax === '') {
 
           countMax = countMin;
         }
 
-        if(allowGenerate){
+        if (allowGenerate) {
 
-          if(rulePositionConfig.ruleIndex === 3){
+          if (rulePositionConfig.ruleIndex === 3) {
             
             // take input text for characters
             result += generateCharacters(charactersText,
               randomIntFromInterval(rulePositionConfig.countMin, rulePositionConfig.countMax));
           }
-          else if(rulePositionConfig.ruleIndex === 4){
+          else if (rulePositionConfig.ruleIndex === 4) {
             
             // take input text for terms
             result += generateTerms(
               randomIntFromInterval(rulePositionConfig.countMin, rulePositionConfig.countMax));
           }
-          else{
+          else {
 
             // read from preset rules
             result += generateCharacters(ruleStrings[rulePositionConfig.ruleIndex],
@@ -158,24 +156,24 @@ function App(){
           }
         }
       }
-      else{
+      else {
 
         let countMin = rulePositionConfig.countMin;
 
-        if(countMin === ''){
+        if (countMin === '') {
 
           countMin = 1;
         }
 
-        if(rulePositionConfig.ruleIndex === 3){
+        if (rulePositionConfig.ruleIndex === 3) {
             
           result += generateCharacters(charactersText, countMin);
         }
-        else if(rulePositionConfig.ruleIndex === 4){
+        else if (rulePositionConfig.ruleIndex === 4) {
           
           result += generateTerms(countMin);
         }
-        else{
+        else {
 
           result += generateCharacters(ruleStrings[rulePositionConfig.ruleIndex], countMin);
         }
@@ -190,11 +188,11 @@ function App(){
     let value = e.target.value;
 
     // handle edge cases for min count
-    if(value < 0){
+    if (value < 0) {
 
       value = 0;
     }
-    else if(value > maxValue){
+    else if (value > maxValue) {
 
       value = maxValue;
     }
@@ -210,15 +208,15 @@ function App(){
     let value = e.target.value;
 
     // handle edge cases for max count
-    if(value > 10){
+    if (value > 10) {
 
       value = 10;
     }
-    else if(value === ''){
+    else if (value === '') {
 
       value = '';
     }
-    else if(value < minValue){
+    else if (value < minValue) {
 
       value = minValue;
     }
@@ -237,13 +235,12 @@ function App(){
     setRulePositionConfigs(updatedState);
   }
 
-  const TestDropdown = (props) => {
+  const RuleDropdown = (props) => {
 
     return(
 
-      <Dropdown style={{display:'inline-block'}}>
-        <Dropdown.Toggle variant='success' id='dropdown-basic'
-          style={{fontSize:'1em', background: 'white', color: 'black'}}>
+      <Dropdown className="DropdownContainer">
+        <Dropdown.Toggle className="DropdownContent" variant="success" id="dropdown-basic">
           {rules[props.rulePositionConfig.ruleIndex]}
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -262,44 +259,44 @@ function App(){
   }
 
   return (
-  <div className='App'>
+  <div className="App">
 
-    <div className="Header">
+    <header className="Header">
       String Generator
-    </div>
+    </header>
 
-    <header className='App-header'>
+    <div className="MainContent">
 
-      <p className='Message'>
+      <p className="Message">
         Set rules to generate a randomised string
       </p>
 
-      <div className='RulesContainer'>
+      <div className="RulesContainer">
         {
           rulePositionConfigs.map(
             (rulePositionConfig, rulePositionConfigIndex) =>
 
-            <div id={'ruleDiv'} className='Rule' key={'rulePositionConfigIndex' + rulePositionConfigIndex}>
+            <div id={'ruleDiv'} className="Rule" key={'rulePositionConfigIndex' + rulePositionConfigIndex}>
 
-              <div className='IconButton'>
-                <IconButton aria-label='delete'
-                  onClick = {(e) => {deleteThisRule(e, rulePositionConfigIndex)}} startIcon={<DeleteIcon />}
-                  color='error'>
-                  <DeleteIcon  style={{  }}/>
+              <div className="IconButton">
+                <IconButton aria-label="delete"
+                  onClick={(e) => {deleteThisRule(e, rulePositionConfigIndex)}} startIcon={<DeleteIcon />}
+                  color="error">
+                  <DeleteIcon/>
                 </IconButton>
               </div>
 
-              <div className='RuleConfigContainer' key={rulePositionConfigIndex}>
+              <div className="RuleConfigContainer" key={rulePositionConfigIndex}>
 
-                <div className='RuleConfig'>
+                <div className="RuleConfig">
 
-                  <TestDropdown rulePositionConfigIndex={rulePositionConfigIndex}
+                  <RuleDropdown rulePositionConfigIndex={rulePositionConfigIndex}
                     rulePositionConfig={rulePositionConfig}/>
 
                   {
                     rulePositionConfig.ruleIndex === 3 ?
 
-                    <TextareaAutosize className='TextAreaAutoSize' type='text' value={charactersText}
+                    <TextareaAutosize className="TextAreaAutoSize" type="text" value={charactersText}
                       onChange={(event) => setCharactersText(event.target.value)}
                       placeholder={'e.g. abc123!@#'}/>
 
@@ -311,7 +308,7 @@ function App(){
                   {
                     rulePositionConfig.ruleIndex === 4 ?
 
-                    <TextareaAutosize className='TextAreaAutoSize' type='text' value={termsText}
+                    <TextareaAutosize className="TextAreaAutoSize" type="text" value={termsText}
                       onChange={(event) => setTermsText(event.target.value)}
                       placeholder={'e.g. abc 123 !@#'}/>
 
@@ -320,17 +317,17 @@ function App(){
                     null
                   }
 
-                  <div className='RangeInputContainer'>
+                  <div className="RangeInputContainer">
 
-                    <div className='RangeInputRadioContainer'>
-                      <input className='RadioSpecific form-check-input' type='radio' 
+                    <div className="RangeInputRadioContainer">
+                      <input className="RadioSpecific form-check-input" type="radio" 
                         value={!rulePositionConfig.isRange} checked={!rulePositionConfig.isRange}
                         onChange={(e) => handleRadioPress(e, rulePositionConfigIndex)}
                         name={'isSet-' + rulePositionConfigIndex}/>
                         
                         Specific
 
-                      <input className='RadioRange form-check-input' type='radio'
+                      <input className="RadioRange form-check-input" type="radio"
                         value={rulePositionConfig.isRange} checked={rulePositionConfig.isRange}
                         onChange={(e) => handleRadioPress(e, rulePositionConfigIndex)}
                         name={'isRange-' + rulePositionConfigIndex}/> 
@@ -341,27 +338,27 @@ function App(){
                     {
                       rulePositionConfig.isRange === true?
 
-                      <div className='RangeInputNumberContainer'>
-                        <label className='RangeMinLabel'>Min</label>
-                        <input className='RangeMinInput'
+                      <div className="RangeInputNumberContainer">
+                        <label className="RangeMinLabel">Min</label>
+                        <input className="RangeMinInput"
                           placeholder={rulePositionConfig.countMin === ''? rulePositionConfig.countMax: rulePositionConfig.countMin}
-                          value={rulePositionConfig.countMin} type='text'
+                          value={rulePositionConfig.countMin} type="text"
                           onChange={(e) => handleMinInput(e, rulePositionConfigIndex, rulePositionConfig.countMax)}/>
 
-                        <label className='RangeMaxLabel'>Max</label>
-                        <input className='RangeMaxInput'
+                        <label className="RangeMaxLabel">Max</label>
+                        <input className="RangeMaxInput"
                           placeholder={rulePositionConfig.countMax === '' ? rulePositionConfig.countMin: rulePositionConfig.countMax}
-                          value={rulePositionConfig.countMax} type='text'
+                          value={rulePositionConfig.countMax} type="text"
                           onChange={(e) => handleMaxInput(e, rulePositionConfigIndex, rulePositionConfig.countMin)}/>
                       </div>
 
                       :
 
-                      <div className='SpecificInput'>
+                      <div className="SpecificInput">
                         <input placeholder={rulePositionConfig.countMin === '' ? 1: rulePositionConfig.countMin}
-                          value={rulePositionConfig.countMin} type='text'
+                          value={rulePositionConfig.countMin} type="text"
                           onChange={(e) => handleMinInput(e, rulePositionConfigIndex, rulePositionConfig.countMax)}
-                          style={{width:'3rem', textAlign:'center'}}/>
+                          style={{width: '3rem', textAlign: 'center'}}/>
                       </div>
                     }
                   </div>
@@ -371,27 +368,27 @@ function App(){
           )
         }
 
-        <div id={'addNewRuleDiv'} className='NewRuleDiv'>
-          <Button color='primary' className='NewRuleButton' variant='contained'
-            onClick = {(e) => {addNewRule(e)}} startIcon={<AddIcon />}
-            sx={{backgroundColor:"rgba(0,0,0,0.2)", textTransform:'none'}}>
+        <div id={'addNewRuleDiv'} className="NewRuleDiv">
+          <Button color="primary" className="NewRuleButton" variant="contained"
+            onClick={(e) => {addNewRule(e)}} startIcon={<AddIcon />}
+            sx={{backgroundColor: 'rgba(0,0,0,0.2)', textTransform: 'none'}}>
             New rule
           </Button>
         </div>
       </div>
 
-      <div className='GenerateStringContainer'>
+      <div className="GenerateStringContainer">
 
-        <Button className='GenerateStringButton' variant='contained' color='success'
-          onClick = {(e) => {e.target.blur(); generateString(e)}} size={'large'}
-          sx={{textTransform:'none'}}>
+        <Button className="GenerateStringButton" variant="contained" color="success"
+          onClick={(e) => {e.target.blur(); generateString(e)}} size={'large'}
+          sx={{textTransform: 'none'}}>
           Generate
         </Button>
 
         {
           result !== '' ?
 
-          <IconButton color='primary' aria-label='copy generated text to clipboard'
+          <IconButton color="primary" aria-label="copy generated text to clipboard"
             onClick={() => {navigator.clipboard.writeText(result)}}>
             <ContentCopyIcon />
           </IconButton>
@@ -406,11 +403,11 @@ function App(){
         result !== ''?
         
         <div>
-          <p className='GeneratedStringLabel'>
+          <p className="GeneratedStringLabel">
             Your generated string is
           </p>
 
-          <p className='GeneratedString'>
+          <p className="GeneratedString">
             {result}
           </p>
         </div>
@@ -419,12 +416,10 @@ function App(){
 
         null
       }
-    </header>
-
-    
+    </div>
 
     <div className="Footer fixed-bottom">
-      <a href='https://github.com/davidescobar17' class='link-light'>GitHub</a>
+      <a href="https://github.com/davidescobar17" class="link-light">GitHub</a>
     </div>
   </div>
   );

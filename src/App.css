@@ -15,7 +15,7 @@
   }
 }
 
-.App-header {
+.MainContent {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -125,8 +125,23 @@
   text-align: center;
 }
 
-.SpecificInput {
+.SpecificInputContainer {
   margin-top: 10px;
+}
+
+.SpecificInput {
+  width: 3rem;
+  text-align: center;
+}
+
+.DropdownContainer {
+  display: inline-block
+}
+
+.DropdownContent {
+  font-size: 1em;
+  background: white;
+  color: black;
 }
 
 .NewRuleDiv {
@@ -163,10 +178,9 @@
 }
 
 .Header {
-  overflow-x:auto;
-  /* background-color: black; */
+  overflow-x: auto;
   color: white;
-  top: 0;  /* as the height of the other div is 30px */
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
