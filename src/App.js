@@ -354,11 +354,11 @@ function App() {
 
                       :
 
-                      <div className="SpecificInput">
-                        <input placeholder={rulePositionConfig.countMin === '' ? 1: rulePositionConfig.countMin}
+                      <div className="SpecificInputContainer">
+                        <input className="SpecificInput"
+                          placeholder={rulePositionConfig.countMin === '' ? 1: rulePositionConfig.countMin}
                           value={rulePositionConfig.countMin} type="text"
-                          onChange={(e) => handleMinInput(e, rulePositionConfigIndex, rulePositionConfig.countMax)}
-                          style={{width: '3rem', textAlign: 'center'}}/>
+                          onChange={(e) => handleMinInput(e, rulePositionConfigIndex, rulePositionConfig.countMax)}/>
                       </div>
                     }
                   </div>

@@ -110,9 +110,18 @@
 }
 
 .RangeMinInput {
-
   width: 3rem;
   text-align: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: .25rem;
 }
 
 .RangeMaxLabel {
@@ -123,6 +132,16 @@
 .RangeMaxInput {
   width: 3rem;
   text-align: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: .25rem;
 }
 
 .SpecificInputContainer {
@@ -132,6 +151,16 @@
 .SpecificInput {
   width: 3rem;
   text-align: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: .25rem;
 }
 
 .DropdownContainer {
