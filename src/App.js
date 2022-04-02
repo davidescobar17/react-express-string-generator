@@ -15,10 +15,10 @@ function App() {
   const [charactersText, setCharactersText] = useState('');
   const [termsText, setTermsText] = useState('');
 
-  const rules = ['a-z/A-Z', '0-9', 'Symbols', 'Specify (characters)', 'Specify (terms)']
+  const rules = ['Letters', '0-9', 'Special Characters', 'Specify (characters)', 'Specify (terms)']
 
   const ruleStrings = ['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', '0123456789',
-    '!@#$%^&*()', '(User specified)', '(User specified)'];
+    ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', '(User specified)', '(User specified)'];
 
   const [rulePositionConfigs, setRulePositionConfigs] = useState(
     [
