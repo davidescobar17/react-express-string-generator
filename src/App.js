@@ -9,11 +9,13 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DoneIcon from '@mui/icons-material/Done';
 
 function App() {
 
   const [charactersText, setCharactersText] = useState('');
   const [termsText, setTermsText] = useState('');
+  const [showCopiedIcon, setShowCopiedIcon] = useState(false);
 
   const rules = ['Letters', '0-9', 'Special Characters', 'Specify (characters)', 'Specify (terms)']
 
@@ -336,7 +338,7 @@ function App() {
                     </div>
 
                     {
-                      rulePositionConfig.isRange === true?
+                      rulePositionConfig.isRange?
 
                       <div className="RangeInputNumberContainer">
                         <label className="RangeMinLabel">Min</label>
@@ -371,7 +373,8 @@ function App() {
         <div id={'addNewRuleDiv'} className="NewRuleDiv">
           <Button color="primary" className="NewRuleButton" variant="contained"
             onClick={(e) => {addNewRule(e)}} startIcon={<AddIcon />}
-            sx={{backgroundColor: 'rgba(0,0,0,0.2)', textTransform: 'none'}}>
+            sx={{backgroundColor: 'rgba(0,0,0,0.2)', textTransform: 'none', borderRadius: '0px',
+              '&:hover': {background: '#282c34', zIndex: 1, boxShadow: '0 3px 10px rgb(0 0 0 / 0.6)'}}}>
             New rule
           </Button>
         </div>
@@ -379,18 +382,30 @@ function App() {
 
       <div className="GenerateStringContainer">
 
-        <Button className="GenerateStringButton" variant="contained" color="success"
+        <Button variant="contained" color="success"
           onClick={(e) => {e.target.blur(); generateString(e)}} size={'large'}
-          sx={{textTransform: 'none'}}>
+          sx={{textTransform: 'none', marginRight: '5px', backgroundColor: '#198754', 
+            '&:hover': {background: '#157347'}}}>
           Generate
         </Button>
 
         {
           result !== '' ?
 
-          <IconButton color="primary" aria-label="copy generated text to clipboard"
-            onClick={() => {navigator.clipboard.writeText(result)}}>
-            <ContentCopyIcon />
+          <IconButton color={showCopiedIcon? "success":"primary"}
+            aria-label="copy generated text to clipboard"
+            onClick={() => {navigator.clipboard.writeText(result);
+              setShowCopiedIcon((prev) => true);
+              setTimeout(() => {setShowCopiedIcon(false)}, 3000)}}>
+            
+            {
+              showCopiedIcon?
+              <DoneIcon />
+              
+              :
+
+              <ContentCopyIcon />
+            }
           </IconButton>
 
           :
@@ -419,7 +434,7 @@ function App() {
     </div>
 
     <div className="Footer fixed-bottom">
-      <a href="https://github.com/davidescobar17" class="link-light">GitHub</a>
+      <a href="https://github.com/davidescobar17" className="link-light">GitHub</a>
     </div>
   </div>
   );
