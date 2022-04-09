@@ -433,7 +433,7 @@ function App() {
       }
     </div>
 
-    <div className="Footer fixed-bottom">
+    <div className="Footer">
       <a href="https://github.com/davidescobar17" className="link-light">GitHub</a>
     </div>
   </div>
