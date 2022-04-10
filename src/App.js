@@ -17,6 +17,12 @@ function App() {
   const [termsText, setTermsText] = useState('');
   const [showCopiedIcon, setShowCopiedIcon] = useState(false);
 
+  // required to prevent scrollbars during animations
+  const [hideScrollbar, setHideScrollbar] = useState(false);
+
+  // to track rules that are being deleted to apply animations
+  const [deletedRuleIds, setDeletedRuleIds] = useState([]);
+
   const rules = ['Letters', '0-9', 'Special Characters', 'Specify (characters)', 'Specify (terms)']
 
   const ruleStrings = ['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', '0123456789',
@@ -89,7 +95,7 @@ function App() {
 
   const setAddNewRuleHeight = (e) => {
 
-    const height = document.getElementById('ruleDiv')?.clientHeight;
+    const height = document.getElementsByClassName('Rule')[0]?.clientHeight;
     
     document.getElementById('addNewRuleDiv').style.minHeight = `${height}px`;
   }
@@ -245,7 +251,7 @@ function App() {
         <Dropdown.Toggle className="DropdownContent" variant="success" id="dropdown-basic">
           {rules[props.rulePositionConfig.ruleIndex]}
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu renderOnMount={true}>
           {
             rules.map(
               (rule, ruleIndex) =>
@@ -273,16 +279,27 @@ function App() {
         Set rules to generate a randomised string
       </p>
 
-      <div className="RulesContainer">
+      <div className={hideScrollbar ? "RulesContainer HideScrollbar" : "RulesContainer"}>
         {
           rulePositionConfigs.map(
             (rulePositionConfig, rulePositionConfigIndex) =>
 
-            <div id={'ruleDiv'} className="Rule" key={'rulePositionConfigIndex' + rulePositionConfigIndex}>
+            <div id={'ruleDiv-' + rulePositionConfigIndex}
+              className={deletedRuleIds.includes('ruleDiv-' + rulePositionConfigIndex) ?
+              'Rule RuleDeleting' : 'Rule'} key={'rulePositionConfigIndex' + rulePositionConfigIndex}>
 
               <div className="IconButton">
-                <IconButton aria-label="delete"
-                  onClick={(e) => {deleteThisRule(e, rulePositionConfigIndex)}} startIcon={<DeleteIcon />}
+                <IconButton aria-label="delete" disableRipple
+                  onClick={(e) => {
+                    setHideScrollbar(true);
+                    setDeletedRuleIds((prev) => [...prev, 'ruleDiv-' + rulePositionConfigIndex]);
+                    setTimeout(() => {
+                      deleteThisRule(e, rulePositionConfigIndex);
+                      setHideScrollbar(false);
+                      setDeletedRuleIds((prev) => prev.filter((item) => item !== 'ruleDiv-' + rulePositionConfigIndex));
+                    }, 400);
+                  }}
+                  startIcon={<DeleteIcon />}
                   color="error">
                   <DeleteIcon/>
                 </IconButton>
@@ -343,7 +360,7 @@ function App() {
                       <div className="RangeInputNumberContainer">
                         <label className="RangeMinLabel">Min</label>
                         <input className="RangeMinInput"
-                          placeholder={rulePositionConfig.countMin === ''? rulePositionConfig.countMax: rulePositionConfig.countMin}
+                          placeholder={rulePositionConfig.countMin === '' ? rulePositionConfig.countMax: rulePositionConfig.countMin}
                           value={rulePositionConfig.countMin} type="text"
                           onChange={(e) => handleMinInput(e, rulePositionConfigIndex, rulePositionConfig.countMax)}/>
 
@@ -372,7 +389,14 @@ function App() {
 
         <div id={'addNewRuleDiv'} className="NewRuleDiv">
           <Button color="primary" className="NewRuleButton" variant="contained"
-            onClick={(e) => {addNewRule(e)}} startIcon={<AddIcon />}
+            onClick={(e) => {
+              setHideScrollbar(true);
+              addNewRule(e);
+              setTimeout(() => {
+                setHideScrollbar(false);
+              }, 400);
+            }}
+            startIcon={<AddIcon />}
             sx={{backgroundColor: 'rgba(0,0,0,0.2)', textTransform: 'none', borderRadius: '0px',
               '&:hover': {background: '#282c34', zIndex: 1, boxShadow: '0 3px 10px rgb(0 0 0 / 0.6)'}}}>
             New rule
@@ -417,7 +441,7 @@ function App() {
       {
         result !== ''?
         
-        <div>
+        <div className="ResultContainer">
           <p className="GeneratedStringLabel">
             Your generated string is
           </p>
