@@ -23,11 +23,16 @@ function App() {
   // to track rules that are being deleted to apply animations
   const [deletedRuleIds, setDeletedRuleIds] = useState([]);
 
+  // character sets
   const rules = ['Letters', '0-9', 'Special Characters', 'Specify (characters)', 'Specify (terms)']
 
+  // characters in each character set
   const ruleStrings = ['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', '0123456789',
     ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', '(User specified)', '(User specified)'];
 
+  const [result, setResult] = useState('');
+
+  // represents the rules currently added
   const [rulePositionConfigs, setRulePositionConfigs] = useState(
     [
       {ruleIndex: 0, countMin: 1, countMax: 8, isRange: true},
@@ -35,8 +40,7 @@ function App() {
     ]
   );
 
-  const [result, setResult] = useState('');
-
+  // changing a rule
   const onSelectRule = (e, index, rulePositionConfigIndex) => {
 
     e.preventDefault();
@@ -47,33 +51,6 @@ function App() {
     setRulePositionConfigs(updatedState);
   }
 
-  const generateTerms = (length) => {
-
-    let result = '';
-    let terms = termsText.split(/\s*[\s,]\s*/);
-    let termsLength = terms.length;
-
-    for ( var i = 0; i < length; i++ ) {
-        result += terms[(Math.floor(Math.random() * 
-        termsLength))];
-    }
-
-    return result;
-  }
-
-  const generateCharacters = (characters, length) => {
-
-    let result = '';
-    let charactersLength = characters.length;
-
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
-      charactersLength));
-    }
-
-    return result;
-  }
-
   const addNewRule = (e) => {
 
     e.preventDefault();
@@ -82,17 +59,7 @@ function App() {
       [...prev, {ruleIndex: 0, countMin: 1, countMax: 8, isRange: true}])
   }
 
-  const deleteThisRule = (e, rulePositionConfigIndex) => {
-
-    e.preventDefault();
-
-    setRulePositionConfigs(
-      prev => prev.filter((_, i) => i !== rulePositionConfigIndex)
-    );
-  }
-
   // set the height of the add new rule button to match the height of rules
-
   const setAddNewRuleHeight = (e) => {
 
     const height = document.getElementsByClassName('Rule')[0]?.clientHeight;
@@ -105,6 +72,44 @@ function App() {
     setAddNewRuleHeight()
   }, []);
 
+  const deleteThisRule = (e, rulePositionConfigIndex) => {
+
+    e.preventDefault();
+
+    setRulePositionConfigs(
+      prev => prev.filter((_, i) => i !== rulePositionConfigIndex)
+    );
+  }
+
+  // randomly select count number of user specified terms
+  const generateTerms = (count) => {
+
+    let result = '';
+    let terms = termsText.split(/\s*[\s,]\s*/);
+    let termsLength = terms.length;
+
+    for (var i = 0; i < count; i++) {
+        result += terms[(Math.floor(Math.random() * 
+        termsLength))];
+    }
+
+    return result;
+  }
+
+  // randomly select count number of user specified characters
+  const generateCharacters = (characters, count) => {
+
+    let result = '';
+    let charactersLength = characters.length;
+
+    for (var i = 0; i < count; i++) {
+      result += characters.charAt(Math.floor(Math.random() * 
+      charactersLength));
+    }
+
+    return result;
+  }
+
   const randomIntFromInterval = (min, max) => {
     
     min = Math.ceil(min);
@@ -113,6 +118,17 @@ function App() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  // to switch between specific and range count for each rule
+  const handleRadioPress = (e, rulePositionConfigIndex) => {
+
+    let updatedState = [...rulePositionConfigs];
+
+    updatedState[rulePositionConfigIndex].isRange = e.target.name.includes('isRange');
+    setRulePositionConfigs(updatedState);
+  }
+
+  // go through each rule, and add the characters from its chosen character set
+  // the number of times specified
   const generateString = (e) => {
 
     e.preventDefault();
@@ -120,7 +136,6 @@ function App() {
     let result = '';
 
     // go through rules, each rule appends to the result string
-
     for (const rulePositionConfig of rulePositionConfigs) {
 
       if (rulePositionConfig.isRange) {
@@ -235,18 +250,9 @@ function App() {
     setRulePositionConfigs(updatedState);
   }
 
-  const handleRadioPress = (e, rulePositionConfigIndex) => {
-
-    let updatedState = [...rulePositionConfigs];
-
-    updatedState[rulePositionConfigIndex].isRange = e.target.name.includes('isRange');
-    setRulePositionConfigs(updatedState);
-  }
-
   const RuleDropdown = (props) => {
 
     return(
-
       <Dropdown className="DropdownContainer">
         <Dropdown.Toggle className="DropdownContent" variant="success" id="dropdown-basic">
           {rules[props.rulePositionConfig.ruleIndex]}

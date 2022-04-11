@@ -256,7 +256,6 @@
   max-height: 300px;
   opacity: 1;
   position: relative;
-  z-index: 999;
 }
 
 .ResultContainer {
